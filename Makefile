@@ -14,7 +14,8 @@ __check_defined = \
 		$(error Undefined $1$(if $2, ($2))$(if $(value @), \
 			required by target `$@')))
 
-apdf := asciidoctor-pdf -a pdf-stylesdir=./ -a pdf-style=custom -a imagesdir=./
+# apdf := asciidoctor-pdf -a pdf-stylesdir=./ -a pdf-style=custom -a imagesdir=./
+apdf := asciidoctor-pdf -a pdf-stylesdir=./ -a imagesdir=./
 
 uml := $(shell find . -type f -name "*.uml")
 uml_svg := $(uml:.uml=.svg)
@@ -30,8 +31,9 @@ all: help
 init: ## install dependencies
 	yarn --pure-lockfile
 
+.PHONY: build
 build: ## build diagrams and reports
-build: build_uml build_adoc
+build: | build_uml build_adoc
 
 .PHONY: clean
 clean: ## delete generated diagrams, presentations and reports
@@ -43,14 +45,14 @@ build_uml: ${uml_svg}
 
 .PHONY: build_adoc
 build_adoc: ## build reports
-build_adoc: ${adoc_reports_pdf}
+build_adoc: $(adoc_reports_pdf)
 
 %.svg: %.uml
 	plantuml -tsvg $<
 
-%.pdf: lang=$(shell awk -F' ' '/^:lang:/ { print ($$2=="" ? "$(default_asciidoctor_lang)" : $$2); }' $<)
-%.pdf: %.adoc
-	${apdf} -a lang=$(lang) -o $@ $<
+%.pdf: $(uml_svg) %.adoc
+	${apdf} -a lang=$(default_asciidoctor_lang) -o $@ \
+		$(shell dirname $@)/$(shell basename -s .pdf $@).adoc
 
 define spellcheck_adoc
   echo "spellchecking $1"
@@ -78,7 +80,7 @@ release: ## build release for document at {path} with {version}
 	@echo "Released version can be found at '$(path)/.releases/$(version)'"
 
 watch: ## set up watch files and build them when changed
-	find . -name "*.adoc" -or -name "*.uml" | entr -s 'make build'
+	find . -name "*.svg" -or -name "*.adoc" -or -name "*.uml" | entr -s 'make build'
 
 .PHONY: help
 help:

@@ -1,0 +1,18 @@
+@startuml
+skinparam actorStyle awesome
+
+package Wallet {
+	[Account 1]
+	[Account 2]
+	[Account 3]
+}
+
+cloud {
+	[RPC Provider]
+}
+
+Wallet --> [RPC Provider] : performs RPC HTTP requests
+[RPC Provider] ..> Wallet : access to metadata (e.g. IP address)
+
+@enduml
+

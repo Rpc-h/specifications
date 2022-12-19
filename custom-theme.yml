@@ -96,8 +96,6 @@ heading:
   margin_bottom: $vertical_rhythm
 title_page:
   align: right
-  logo:
-    image: 'image:footer-logo.png[pdfwidth=25%]'
   title:
     top: 55%
     font_size: $heading_h2_font_size

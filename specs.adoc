@@ -1,15 +1,80 @@
-:doctype: article
-:doctitle: RPCh Specification
-ifdef::backend-pdf[:notitle:]
-ifdef::backend-pdf[]
-[discrete]
-= [underline]#{doctitle}#
-endif::[]
+= RPCh Specification
+HOPR Association <tech@hoprnet.org>
+:revdate: 19-12-2022
+:revnumber: v1.0.0-rc
+:revremark: Initial Version
+:author: HOPR Association
+:toc:
+:homepage: https://rpch.net
+:url-repo: https://github.com/rpc-h/specifications
+:title-page:
+:version-label!:
 
-Authors: HOPR Association
-Version: 1.0.0-rc
-Last Updated:
-Commit Hash: 
+== Introduction
 
-:sectnums:
+todo
+
+== Concept
+
+The fundamental interaction between a wallet and an RPC provider follows a simple
+request-response pattern (see <<rpc1-img>>).
+
+1. The wallet makes an RPC request to the RPC provider.
+2. The RPC provider returns the RPC response.
+
+image::diagrams/basic-rpc.svg[id=rpc1-img,title="Basic Wallet-RPC interaction"]
+
+Because the requests come directly from the wallet, the RPC provider has access
+to each requests metadata, which includes IP address information. The data from
+multiple requests can be combined to create even more specific data points for a
+particular wallet.
+
+RPCh changes that interaction such that it acts as an indirection between the
+wallet and RPC provider.
+
+image::diagrams/basic-rpc-with-rpch.svg[id=rpc2-img,title="Wallet-RPC interaction using RPCh"]
+
+As a result the RPC provider doesn't have direct access to a wallet's metadata
+anymore, reducing the actionable insight an RPC provider can gain out-of-the-box.
+
+== Goals
+
+The general benefit of using RPCh is the decoupling of the service an RPC
+provider performs for a wallet from its ability to gather actioable
+knowledge on that wallet's behaviour. This ensures that irrespective of what RPC
+provider a wallet chooses to use, it can be assured that metadata of its
+requests isn't leaked towards the RPC provider in use.
+
+Moreover, the following set of goals are set for RPCh:
+
+1. RPC providers cannot access IP-level metadata of wallets.
+1. RPC providers cannot directly infer knowledge by analyzing multiple
+sequential requests.
+1. Usage of RPCh must be free for wallets.
+1. Any RPC provider can be used through RPCh as long as it adheres to the
+standard Ethereum JSON-RPC API. This is further referred to as BYOP
+(Bring-your-own-provider).
+
+== Requirements
+
+1. Final RPC requests towards RPC provider must NOT be made by wallets.
+1. Final RPC requests towards RPC provider must NOT be made different nodes.
+1. Funding of RPCh through external parties.
+1. RPC providers must be configurable per-request.
+
+== Architecture
+
+image::diagrams/architecture-relaying.svg[id=arch1-img,title="Architecture of RPC relaying in RPCh"]
+
+== Processes
+
+todo
+
+== Components
+
+todo
+
+== Summary
+
+todo
 

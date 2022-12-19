@@ -1,0 +1,20 @@
+@startuml
+
+package Wallet {
+	[Account 1]
+	[Account 2]
+	[Account 3]
+}
+
+cloud {
+	[RPC Provider]
+}
+
+component RPCh
+
+Wallet --> RPCh : performs RPC HTTP requests
+RPCh --> [RPC Provider] : relays requests
+[RPC Provider] ..> RPCh : access to metadata (e.g. IP address)
+
+@enduml
+
