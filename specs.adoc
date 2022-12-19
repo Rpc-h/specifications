@@ -1,0 +1,15 @@
+:doctype: article
+:doctitle: RPCh Specification
+ifdef::backend-pdf[:notitle:]
+ifdef::backend-pdf[]
+[discrete]
+= [underline]#{doctitle}#
+endif::[]
+
+Authors: HOPR Association
+Version: 1.0.0-rc
+Last Updated:
+Commit Hash: 
+
+:sectnums:
+

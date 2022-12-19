@@ -14,6 +14,18 @@ in
 with pkgs;
 mkShell {
   buildInputs = [
+    # report generation toolkit
+    asciidoctor
+
+    # language checking
+    aspell
+
+    # for watching files for changes
+    entr
+
+    # for generating diagrams
+    plantuml
+
     # custom pkg groups
     macosPkgs
     linuxPkgs
