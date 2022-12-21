@@ -1,0 +1,36 @@
+@startuml
+
+cloud "HOPR network" as hopr {
+	together {
+		[HOPR node 1] as h1
+		[HOPR node 2] as h2
+	}
+	together {
+		[HOPR node 3] as hex1
+		[HOPR node 4] as hex2
+	}
+}
+
+[Discovery Service] as ds
+
+[Funding Service 1] as fs1
+[Funding Service 2] as fs2
+
+together {
+	[RPCh exit node 1] as ex1
+	[RPCh exit node 2] as ex2
+}
+
+ds --> fs1 : funding requests
+ds --> fs2 : funding requests
+
+fs1 --> h1 : fund
+fs2 --> h2 : fund
+
+fs1 ---> hex1 : fund
+fs2 ---> hex2 : fund
+
+ex1 .up. hex1 : partner node
+ex2 .up. hex2 : partner node
+
+@enduml

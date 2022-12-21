@@ -1,0 +1,28 @@
+@startuml
+
+package Wallet {
+	[RPCh client] as cl
+}
+
+cloud "HOPR network" as hopr {
+	[HOPR node 1] as h1
+	[HOPR node 2] as h2
+}
+
+[Discovery Service] as ds
+
+[RPCh exit node 1] as ex1
+[RPCh exit node 2] as ex2
+
+cl --> ds : request access
+
+ex1 -up--> ds : register/update registration
+ex2 -up--> ds : register/update registration
+
+h1 -up-> ds : register/update registration
+h2 -up-> ds : register/update registration
+
+ds --> h1 : request API access
+ds --> h2 : request API access
+
+@enduml

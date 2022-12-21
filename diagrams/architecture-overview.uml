@@ -1,0 +1,24 @@
+@startuml
+
+package Wallet as wal {
+	frame "Account 1" as a1
+	frame "Account 2" as a2
+}
+
+cloud "RPCh Functions" {
+	[Relaying] as rel
+  [Coordination] as coo
+	[Funding] as fun
+}
+
+wal --> rel : sends messages
+wal --> coo : requests access
+
+coo -> fun : triggers funding
+coo -> rel : manages access
+
+rel --> coo : registers capabilities
+
+fun -> rel : funds
+
+@enduml

@@ -47,34 +47,48 @@ requests isn't leaked towards the RPC provider in use.
 
 Moreover, the following set of goals are set for RPCh:
 
-1. RPC providers cannot access IP-level metadata of wallets.
-1. RPC providers cannot directly infer knowledge by analyzing multiple
+. RPC providers cannot access IP-level metadata of wallets.
+. RPC providers cannot directly infer knowledge by analyzing multiple
 sequential requests.
-1. Usage of RPCh must be free for wallets.
-1. Any RPC provider can be used through RPCh as long as it adheres to the
+. Usage of RPCh must be free for wallets.
+. Any RPC provider can be used through RPCh as long as it adheres to the
 standard Ethereum JSON-RPC API. This is further referred to as BYOP
 (Bring-your-own-provider).
 
 == Requirements
 
-1. Final RPC requests towards RPC provider must NOT be made by wallets.
-1. Final RPC requests towards RPC provider must NOT be made different nodes.
-1. Funding of RPCh through external parties.
-1. RPC providers must be configurable per-request.
+. Final RPC requests towards RPC provider must NOT be made by wallets.
+. Final RPC requests towards RPC provider must NOT be made different nodes.
+. Funding of RPCh through external parties.
+. RPC providers must be configurable per-request.
 
 == Architecture
 
-image::diagrams/architecture-relaying.svg[id=arch1-img,title="Architecture of RPC relaying in RPCh"]
+image::diagrams/architecture-overview.svg[id=arch-overview-img,title="Functional Architecture Blocks"]
 
-== Processes
+image::diagrams/architecture-relaying.svg[id=arch-relay-img,title="RPCh relaying function"]
 
-todo
+image::diagrams/architecture-funding.svg[id=arch-fund-img,title="RPCh funding function"]
+
+image::diagrams/architecture-coordination.svg[id=arch-coord-img,title="RPCh coordination function"]
 
 == Components
 
 todo
 
+== Processes
+
+todo
+
+
 == Summary
 
 todo
 
+== Extension: NIRP
+
+todo
+
+== Extension: Kevlar
+
+todo

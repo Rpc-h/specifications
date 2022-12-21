@@ -1,37 +1,34 @@
 @startuml
 
 package Wallet {
-	"Account 1" as "a1"
-	"Account 2" as "a2"
-	"RPCh client" as "rpchc"
+	together {
+		frame "Account 1" as a1
+		frame "Account 2" as a2
+	}
+	[RPCh client] as cl
 }
 
-cloud {
-	[RPC Provider] as "rpcp"
-}
+[RPC Provider] as pr
 
-cloud "HOPR network" as "hopr" {
-}
+cloud "HOPR network" as hopr
 
-cloud "RPCh exit nodes" as "rpche" {
-	[RPCh exit node 1] as "rpche1"
-	[RPCh exit node 2] as "rpche2"
-}
+[RPCh exit node 1] as ex1
+[RPCh exit node 2] as ex2
 
-a1 --> rpchc : uses
-a2 --> rpchc : uses
+a1 --> cl : uses
+a2 --> cl : uses
 
-rpchc --> hopr : send messages (RPC request)
+cl --> hopr : send messages (RPC request)
 
-hopr --> rpche1 : receive messages (RPC request)
-hopr --> rpche2 : receive messages (RPC request)
+hopr --> ex1 : receive messages (RPC request)
+hopr --> ex2 : receive messages (RPC request)
 
-rpch1 -> rpcp : performs RPC HTTP requests
-rpch2 -> rpcp : performs RPC HTTP requests
+ex1 --> pr : perform RPC HTTP requests
+ex2 --> pr : perform RPC HTTP requests
 
-rpch1 -> hopr : send messages (RPC response)
-rpch2 -> hopr :  send messages (RPC response)
+ex1 -up-> hopr : send messages (RPC response)
+ex2 -up-> hopr : send messages (RPC response)
 
-hopr --> rpchc : receive messages (RPC response)
+hopr -up-> cl : receive messages (RPC response)
 
 @enduml
